@@ -14,7 +14,7 @@ import '../../features/screens/ui/onboarding/splash_screen/splash_screen.dart';
 import '../../features/screens/ui/onboarding/onboarding_discover.dart';
 import '../../features/screens/ui/onboarding/onboarding_guides.dart';
 import '../../features/screens/ui/onboarding/splash_screen/splash_screen_two.dart';
-import '../../features/screens/widget/nacigation_bottom.dart';
+import '../../features/widget/nacigation_bottom.dart';
 
 class AppRouter {
   final MyRepo myRepo;
@@ -62,7 +62,7 @@ class AppRouter {
           // String safeName = Uri.encodeQueryComponent(arg);
           return MaterialPageRoute(
             builder: (context) => BlocProvider(
-              create: (context) => AppStateCubit(myRepo)..searchById(arg),
+              create: (context) => AppStateCubit(myRepo)..searchByIdGetIt(arg),
               child: const SearchDetailScreen(),
             ),
           );

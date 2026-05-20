@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../ui/home/home_screen.dart';
-import '../ui/profile_screen.dart';
-import '../ui/saved_meals/saved_screen.dart';
-import '../ui/search_screen.dart';
+import '../screens/ui/home/home_screen.dart';
+import '../screens/ui/profile_screen.dart';
+import '../screens/ui/saved_meals/saved_screen.dart';
+// import '../screens/ui/search_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   List<Widget> page = [
     const HomeScreen(),
-    const SearchScreen(),
+    // const SearchScreen(),
     const SavedScreen(),
 
     const ProfileScreen(),
@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          // BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
             label: 'Saved',

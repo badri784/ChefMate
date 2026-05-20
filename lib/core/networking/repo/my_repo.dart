@@ -37,14 +37,13 @@ class MyRepo {
     }
   }
 
-  // Future<CategoryModel> getMealsByCategory(String category) async {
-  //   try {
-  //     final CategoryModel response = await webServices.getCategory(category);
-  //     log('resposnse: ${response.toString()}');
-  //     return response;
-  //   } catch (e) {
-  //     log('error: ${e.toString()}');
-  //     rethrow;
-  //   }
-  // }
+  Future<FoodModel> searchByName(String name) async {
+    try {
+      final response = await webServices.searchByName(name);
+      return response;
+    } catch (e) {
+      log('error search by name in my repo : ${e.toString()}');
+      rethrow;
+    }
+  }
 }

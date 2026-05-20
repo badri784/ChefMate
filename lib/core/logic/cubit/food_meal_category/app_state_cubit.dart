@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_app/core/model/food_model/meals.dart';
 import '../../../model/food_model/food_model.dart';
 import '../../../networking/repo/my_repo.dart';
 
@@ -9,36 +10,42 @@ part 'app_state_state.dart';
 class AppStateCubit extends Cubit<AppStateState> {
   AppStateCubit(this.myRepo) : super(AppStateInitial());
   final MyRepo myRepo;
-  // List<Meal> savedMeals = [];
-  // bool isFavorite = false;
-  // void addToFavorite(Meal meal) {
-  //   savedMeals.add(meal);
-  //   isFavorite = true;
-  //   emit(AppStateSuccess(FoodModel(meals: savedMeals)));
-  // }
-
-  // void removeFromFavorite(Meal meal) {
-  //   savedMeals.remove(meal);
-  //   isFavorite = false;
-  //   emit(AppStateSuccess(FoodModel(meals: savedMeals)));
-  // }
-
+  List<Meal> searchedMealList = [];
+  // TextEditingController searchController = TextEditingController();
   Future<void> getMeals(String firstChar) async {
     try {
       emit(AppStateLoading());
+
       final FoodModel response = await myRepo.getMeals(firstChar);
+      searchedMealList = response.meals;
       emit(AppStateSuccess(response));
     } catch (e) {
       emit(AppStateError(e.toString()));
     }
   }
 
-  Future<void> searchById(String id) async {
+  Future<void> searchByIdGetIt(String id) async {
     try {
       emit(AppStateLoading());
       final FoodModel response = await myRepo.searchById(id);
-      log('id::::::::::::::::::::::::::::::::::::::::::::::::::::::::::; $id');
       emit(AppStateSuccess(response));
+    } catch (e) {
+      emit(AppStateError(e.toString()));
+    }
+  }
+
+  Future<void> searchByName(String searchMealName) async {
+    try {
+      emit(AppStateLoading());
+      final Iterable<Meal> searchMealByName = searchedMealList.where(
+        (meal) =>
+            meal.strMeal!.toLowerCase().contains(searchMealName.toLowerCase()),
+      );
+      if (searchMealByName.isEmpty) {
+        log('empty list');
+      }
+      log('search:${searchMealByName.toString()}');
+      emit(AppStateSuccess(FoodModel(meals: searchMealByName.toList())));
     } catch (e) {
       emit(AppStateError(e.toString()));
     }
