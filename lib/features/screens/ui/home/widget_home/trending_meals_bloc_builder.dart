@@ -17,8 +17,17 @@ class TrendingMealsBlocBuilder extends StatelessWidget {
         if (state is AppStateError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.errorMessage.toString()),
-              backgroundColor: Colors.red,
+              content: Text(
+                state.errorMessage.toString(),
+                style: const TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.grey,
+              duration: const Duration(seconds: 2),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              dismissDirection: DismissDirection.startToEnd,
             ),
           );
         }
@@ -26,6 +35,14 @@ class TrendingMealsBlocBuilder extends StatelessWidget {
       builder: (context, state) {
         if (state is AppStateInitial) {
           return const Center(child: CircularProgressIndicator());
+        }
+        if (state is AppStateNoMealsFound) {
+          return Center(
+            child: Text(
+              state.errorMessage,
+              style: const TextStyle(color: Colors.black),
+            ),
+          );
         }
         // if (state is AppStateError) {
         //   return Container(
