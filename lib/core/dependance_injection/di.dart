@@ -1,5 +1,7 @@
 // import 'dart:developer';
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:food_app/core/networking/repo/my_repo.dart';
 import 'package:food_app/core/networking/web_services/web_services.dart';
@@ -15,17 +17,17 @@ Future<void> setupDI() async {
 
   dio.options.connectTimeout = const Duration(seconds: 10);
   dio.options.receiveTimeout = const Duration(seconds: 10);
-  // dio.interceptors.add(
-  //   LogInterceptor(
-  //     requestBody: true,
-  //     request: true,
-  //     responseBody: true,
-  //     responseHeader: true,
-  //     error: true,
-  //     requestHeader: true,
-  //     logPrint: (object) {
-  //       log('object Dio Log :${object.toString()}');
-  //     },
-  //   ),
-  // );
+  dio.interceptors.add(
+    LogInterceptor(
+      requestBody: true,
+      request: true,
+      responseBody: true,
+      responseHeader: true,
+      error: true,
+      requestHeader: true,
+      logPrint: (object) {
+        log('object Dio Log :${object.toString()}');
+      },
+    ),
+  );
 }
