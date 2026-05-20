@@ -40,7 +40,7 @@ class TrendingMealsBlocBuilder extends StatelessWidget {
           return Center(
             child: Text(
               state.errorMessage,
-              style: const TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black, fontSize: 18),
             ),
           );
         }
