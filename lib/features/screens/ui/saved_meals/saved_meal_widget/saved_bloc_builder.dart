@@ -5,7 +5,6 @@ import 'package:food_app/core/model/food_model/meals.dart';
 import 'package:food_app/core/theme/font_weight.dart';
 
 import '../../../../../core/helpers/extension.dart';
-import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/routing/routes.dart';
 import 'saved_meal_item.dart';
 
