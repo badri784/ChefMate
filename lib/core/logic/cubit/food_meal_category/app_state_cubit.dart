@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/model/food_model/meals.dart';
 import '../../../model/food_model/food_model.dart';
@@ -41,11 +39,11 @@ class AppStateCubit extends Cubit<AppStateState> {
         (meal) =>
             meal.strMeal!.toLowerCase().contains(searchMealName.toLowerCase()),
       );
-      if (searchMealByName.isEmpty) {
-        log('empty list');
+      if (searchMealByName.isNotEmpty) {
+        emit(AppStateSuccess(FoodModel(meals: searchMealByName.toList())));
+      } else {
+        emit(AppStateNoMealsFound());
       }
-      log('search:${searchMealByName.toString()}');
-      emit(AppStateSuccess(FoodModel(meals: searchMealByName.toList())));
     } catch (e) {
       emit(AppStateError(e.toString()));
     }
