@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_app/core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
 import 'package:food_app/core/model/food_model/meals.dart';
 
 class MealBackgroundImage extends StatelessWidget {
@@ -15,6 +17,9 @@ class MealBackgroundImage extends StatelessWidget {
       right: 0,
       height: 350,
       child: GestureDetector(
+        onDoubleTap: () {
+          context.read<SavemealCubit>().toggleFavorite(meal);
+        },
         onTap: () {
           showDialog(
             context: context,

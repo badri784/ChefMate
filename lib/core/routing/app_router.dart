@@ -36,7 +36,7 @@ class AppRouter {
       case Routes.home:
         return MaterialPageRoute(
           builder: (context) {
-            final randomCharacter = String.fromCharCode(
+            final String randomCharacter = String.fromCharCode(
               Random().nextInt(26) + 97,
             );
             return BlocProvider(

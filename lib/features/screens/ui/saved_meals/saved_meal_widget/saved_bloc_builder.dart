@@ -4,7 +4,9 @@ import 'package:food_app/core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
 import 'package:food_app/core/model/food_model/meals.dart';
 import 'package:food_app/core/theme/font_weight.dart';
 
+import '../../../../../core/helpers/extension.dart';
 import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/routing/routes.dart';
 import 'saved_meal_item.dart';
 
 class SavedBlocBuilder extends StatelessWidget {
@@ -16,20 +18,14 @@ class SavedBlocBuilder extends StatelessWidget {
       builder: (context, state) {
         final List<Meal> savedMeals = context.read<SavemealCubit>().savedMeals;
         if (savedMeals.isEmpty) {
-          return Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'no meals',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeightManger.fontWeightNormal,
-                  ),
-                ),
-                horizontalSpace(10),
-                const Icon(Icons.hourglass_empty_sharp, size: 32),
-              ],
+          return const Center(
+            child: Text(
+              'no meals saved yet !!! 🍷\n tap on red heart icon for save meal',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeightManger.fontWeightNormal,
+              ),
+              textAlign: TextAlign.center,
             ),
           );
         }
@@ -37,7 +33,15 @@ class SavedBlocBuilder extends StatelessWidget {
           itemCount: savedMeals.length,
           itemBuilder: (context, index) {
             final meal = savedMeals[index];
-            return SavedMealItem(meal: meal);
+            return GestureDetector(
+              onDoubleTap: () {
+                context.read<SavemealCubit>().toggleFavorite(meal);
+              },
+              onTap: () {
+                context.pushnamed(Routes.detailScreen, arguments: meal);
+              },
+              child: SavedMealItem(meal: meal),
+            );
           },
         );
       },
