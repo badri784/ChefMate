@@ -29,3 +29,10 @@ The application is engineered with a **Modular/Clean Architecture** to ensure ma
 
 ## 🏗️ Architecture Overview
 <img width="12617" height="8080" alt="Untitled" src="https://github.com/user-attachments/assets/1299d7ce-d3d2-4465-99ef-20fc3b37f3ae" />
+
+screenshot from the application 
+<img width="720" height="1600" alt="WhatsApp Image 2026-05-21 at 4 28 22 PM (3)" src="https://github.com/user-attachments/assets/bed7bda1-4eb8-40d6-9ec5-8a2bed86602d" />
+<img width="720" height="1600" alt="WhatsApp Image 2026-05-21 at 4 28 22 PM (2)" src="https://github.com/user-attachments/assets/8d67808a-1b1a-411c-85d2-f55310c57032" />
+<img width="720" height="1600" alt="WhatsApp Image 2026-05-21 at 4 28 22 PM (1)" src="https://github.com/user-attachments/assets/0c6c8e64-529c-4ef7-aba5-2ee925d4487e" />
+<img width="720" height="1600" alt="WhatsApp Image 2026-05-21 at 4 28 22 PM" src="https://github.com/user-attachments/assets/de93a23f-26e2-47a6-af15-964bc2e38535" />
+<img width="720" height="1600" alt="WhatsApp Image 2026-05-21 at 4 28 22 PM (4)" src="https://github.com/user-attachments/assets/0a125334-af64-4a23-a5f7-fd65a470ad36" />
