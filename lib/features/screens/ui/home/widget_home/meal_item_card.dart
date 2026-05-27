@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
+import 'package:food_app/features/screens/ui/home/widget_home/custom_cached_image.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/model/food_model/meals.dart';
 import '../../../../../core/theme/font_weight.dart';
@@ -48,22 +48,19 @@ class MealItemCard extends StatelessWidget {
           verticalSpace(5),
           Stack(
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                child: CachedNetworkImage(
-                  width: double.infinity,
-                  imageUrl: meal.strMealThumb!,
-                  fadeInDuration: const Duration(milliseconds: 100),
-                  placeholder: (context, url) => SizedBox(
-                    height: 300,
-                    child: Image.asset(
-                      'assets/image/loading_gray.gif',
-                      height: 45,
-                      width: 45,
-                    ),
+              Hero(
+                tag: meal.idMeal!,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  child: CustomCachedImage(
+                    hightMeal: 300,
+                    widthmeal: double.infinity,
+                    meal: meal,
+                    hight: 45,
+                    width: 45,
+                    imageUrl: meal.strMealThumb!,
+                    boxFit: BoxFit.cover,
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                  fit: BoxFit.cover,
                 ),
               ),
               Positioned(

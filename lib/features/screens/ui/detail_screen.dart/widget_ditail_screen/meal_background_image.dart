@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
 import 'package:food_app/core/model/food_model/meals.dart';
+import 'package:food_app/features/screens/ui/home/widget_home/custom_cached_image.dart';
 
 class MealBackgroundImage extends StatelessWidget {
   final Meal meal;
@@ -30,11 +30,15 @@ class MealBackgroundImage extends StatelessWidget {
             },
           );
         },
-        child: CachedNetworkImage(
-          imageUrl: meal.strMealThumb ?? '',
-          fit: BoxFit.cover,
-          placeholder: (context, url) => Container(color: Colors.grey[200]),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+        child: Hero(
+          tag: meal.idMeal!,
+          child: CustomCachedImage(
+            meal: meal,
+            hight: 350,
+            width: double.infinity,
+            imageUrl: meal.strMealThumb!,
+            boxFit: BoxFit.cover,
+          ),
         ),
       ),
     );

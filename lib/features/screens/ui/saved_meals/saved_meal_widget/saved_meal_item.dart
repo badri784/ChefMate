@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/helpers/spacing.dart';
@@ -7,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
 import '../../../../../core/model/food_model/meals.dart';
 import '../../../../../core/theme/font_weight.dart';
+import '../../home/widget_home/custom_cached_image.dart';
 
 class SavedMealItem extends StatelessWidget {
   final Meal meal;
@@ -21,16 +21,20 @@ class SavedMealItem extends StatelessWidget {
         children: [
           Stack(
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: meal.strMealThumb ?? '',
-                  fit: BoxFit.cover,
-                  height: 350,
-                  width: double.infinity,
+              Hero(
+                tag: meal.idMeal!,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  child: CustomCachedImage(
+                    meal: meal,
+                    hight: 350,
+                    widthmeal: double.infinity,
+                    width: double.infinity,
+                    imageUrl: meal.strMealThumb!,
+                  ),
                 ),
               ),
               Positioned(

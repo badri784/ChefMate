@@ -8,7 +8,7 @@ class SavemealCubit extends Cubit<SavemealState> {
   SavemealCubit() : super(SavemealInitial()) {
     _loadSavedMeals();
   }
-  
+
   List<Meal> savedMeals = [];
   bool isFavorite = false;
 
@@ -18,8 +18,10 @@ class SavemealCubit extends Cubit<SavemealState> {
   }
 
   void toggleFavorite(Meal meal) {
-    final isExisting = savedMeals.any((element) => element.idMeal == meal.idMeal);
-    
+    final isExisting = savedMeals.any(
+      (element) => element.idMeal == meal.idMeal,
+    );
+
     if (isExisting) {
       savedMeals.removeWhere((element) => element.idMeal == meal.idMeal);
       if (meal.idMeal != null) {
@@ -29,7 +31,6 @@ class SavemealCubit extends Cubit<SavemealState> {
       savedMeals.add(meal);
       HiveService.saveMeal(meal);
     }
-    
     // Emit a new state with the updated list
     emit(SavemealSuccess(meals: List.from(savedMeals)));
   }
