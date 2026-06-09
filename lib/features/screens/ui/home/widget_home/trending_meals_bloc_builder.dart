@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_app/core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
-import '../../../../../core/helpers/extension.dart';
-import '../../../../../core/helpers/spacing.dart';
-import '../../../../../core/logic/cubit/food_meal_category/app_state_cubit.dart';
-import 'meal_item_card.dart';
 
-import '../../../../../core/routing/routes.dart';
+import '../../../../../core/logic/cubit/food_meal_category/app_state_cubit.dart';
+import 'meals_initial_view.dart';
+import 'meals_loading_view.dart';
+import 'meals_not_found_view.dart';
+import 'meals_success_list_view.dart';
 
 class TrendingMealsBlocBuilder extends StatelessWidget {
   const TrendingMealsBlocBuilder({super.key});
@@ -58,55 +57,16 @@ class TrendingMealsBlocBuilder extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AppStateInitial) {
-          return const Center(child: CircularProgressIndicator());
+          return const MealsInitialView();
         }
         if (state is AppStateNoMealsFound) {
-          return Center(
-            child: Text(
-              state.errorMessage,
-              style: const TextStyle(color: Colors.black, fontSize: 18),
-            ),
-          );
+          return MealsNotFoundView(message: state.errorMessage);
         }
         if (state is AppStateLoading) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Loading Your Meals...',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: ColorScheme.of(context).onSurface,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              verticalSpace(16),
-              const Center(child: CircularProgressIndicator()),
-            ],
-          );
+          return const MealsLoadingView();
         }
         if (state is AppStateSuccess) {
-          return ListView.builder(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            itemCount: state.foodModel.meals.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onDoubleTap: () {
-                  context.read<SavemealCubit>().toggleFavorite(
-                    state.foodModel.meals[index],
-                  );
-                },
-                onTap: () {
-                  context.pushnamed(
-                    Routes.detailScreen,
-                    arguments: state.foodModel.meals[index],
-                  );
-                },
-                child: MealItemCard(meal: state.foodModel.meals[index]),
-              );
-            },
-          );
+          return MealsSuccessListView(foodModel: state.foodModel);
         }
         return const SizedBox.shrink();
       },

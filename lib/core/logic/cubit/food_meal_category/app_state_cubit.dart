@@ -43,7 +43,7 @@ class AppStateCubit extends Cubit<AppStateState> {
   Future<void> searchByName(String searchMealName) async {
     try {
       emit(AppStateLoading());
-      final Iterable<Meal> searchMealByName = searchedMealList.where(
+      final searchMealByName = searchedMealList.where(
         (meal) =>
             meal.strMeal!.toLowerCase().contains(searchMealName.toLowerCase()),
       );
