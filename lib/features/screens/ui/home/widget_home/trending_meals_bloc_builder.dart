@@ -15,21 +15,45 @@ class TrendingMealsBlocBuilder extends StatelessWidget {
     return BlocConsumer<AppStateCubit, AppStateState>(
       listener: (context, state) {
         if (state is AppStateError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                state.errorMessage.toString(),
-                style: const TextStyle(color: Colors.white),
+          if (state.errorMessage == 'timeout') {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Connection Timeout'),
+                content: const Text(
+                  'Please check your internet connection and try again.',
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      final cubit = context.read<AppStateCubit>();
+                      if (cubit.lastFetchedChar != null) {
+                        cubit.getMeals(cubit.lastFetchedChar!);
+                      }
+                    },
+                    child: const Text('Okay'),
+                  ),
+                ],
               ),
-              backgroundColor: Colors.grey,
-              duration: const Duration(seconds: 2),
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  state.errorMessage.toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.grey,
+                duration: const Duration(seconds: 2),
+                behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                dismissDirection: DismissDirection.startToEnd,
               ),
-              dismissDirection: DismissDirection.startToEnd,
-            ),
-          );
+            );
+          }
         }
       },
       builder: (context, state) {
@@ -44,23 +68,6 @@ class TrendingMealsBlocBuilder extends StatelessWidget {
             ),
           );
         }
-        // if (state is AppStateError) {
-        //   return Container(
-        //     padding: const EdgeInsets.all(15),
-        //     margin: const EdgeInsets.symmetric(horizontal: 20),
-        //     decoration: BoxDecoration(
-        //       color: Colors.black,
-        //       borderRadius: BorderRadius.circular(20),
-        //     ),
-        //     height: 100,
-        //     child: Center(
-        //       child: Text(
-        //         state.errorMessage.toString(),
-        //         style: const TextStyle(color: Colors.white),
-        //       ),
-        //     ),
-        //   );
-        // }
         if (state is AppStateLoading) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,

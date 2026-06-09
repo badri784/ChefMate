@@ -10,7 +10,6 @@ class SavemealCubit extends Cubit<SavemealState> {
   }
 
   List<Meal> savedMeals = [];
-  bool isFavorite = false;
 
   void _loadSavedMeals() {
     savedMeals = HiveService.getSavedMeals();

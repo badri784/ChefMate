@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/model/food_model/meals.dart';
 import '../../../model/food_model/food_model.dart';
@@ -9,16 +10,23 @@ class AppStateCubit extends Cubit<AppStateState> {
   AppStateCubit(this.myRepo) : super(AppStateInitial());
   final MyRepo myRepo;
   List<Meal> searchedMealList = [];
+  String? lastFetchedChar;
   // TextEditingController searchController = TextEditingController();
   Future<void> getMeals(String firstChar) async {
     try {
+      lastFetchedChar = firstChar;
       emit(AppStateLoading());
-
       final FoodModel response = await myRepo.getMeals(firstChar);
       searchedMealList = response.meals;
       emit(AppStateSuccess(response));
     } catch (e) {
-      emit(AppStateError(e.toString()));
+      if (e is DioException &&
+          (e.type == DioExceptionType.connectionTimeout ||
+              e.type == DioExceptionType.receiveTimeout)) {
+        emit(AppStateError('timeout'));
+      } else {
+        emit(AppStateError(e.toString()));
+      }
     }
   }
 

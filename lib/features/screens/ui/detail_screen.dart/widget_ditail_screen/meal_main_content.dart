@@ -85,7 +85,7 @@ class MealMainContent extends StatelessWidget {
     meal.strIngredient19,
     meal.strIngredient20,
   ];
-  List<Widget> _buildIngredientsList() {
+  List<Widget> get _buildIngredientsList {
     List<Widget> widgets = [];
     final measures = [
       meal.strMeasure1,
@@ -110,7 +110,7 @@ class MealMainContent extends StatelessWidget {
       meal.strMeasure20,
     ];
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i <20; i++) {
       if (ingredients[i] != null && ingredients[i]!.trim().isNotEmpty) {
         widgets.add(
           Container(
@@ -274,7 +274,7 @@ class MealMainContent extends StatelessWidget {
             const SizedBox(height: 15),
 
             // Ingredients List
-            ..._buildIngredientsList(),
+            ..._buildIngredientsList,
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
