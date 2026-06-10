@@ -21,7 +21,7 @@ class SavedMealItem extends StatelessWidget {
           Stack(
             children: [
               HeroWidgetAndImage(meal: meal),
-              ContanerAndLoveICong(meal: meal),
+              StarInSaveScreen(meal: meal),
               const RatingAndContainerWidgetInSaveScreen(),
             ],
           ),

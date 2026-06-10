@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
 import '../../../../../core/model/food_model/meals.dart';
 
-class ContanerAndLoveICong extends StatelessWidget {
-  const ContanerAndLoveICong({super.key, required this.meal});
+class StarInSaveScreen extends StatelessWidget {
+  const StarInSaveScreen({super.key, required this.meal});
 
   final Meal meal;
 
