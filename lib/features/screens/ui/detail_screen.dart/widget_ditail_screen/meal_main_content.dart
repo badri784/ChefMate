@@ -110,7 +110,7 @@ class MealMainContent extends StatelessWidget {
       meal.strMeasure20,
     ];
 
-    for (int i = 0; i <20; i++) {
+    for (int i = 0; i < 20; i++) {
       if (ingredients[i] != null && ingredients[i]!.trim().isNotEmpty) {
         widgets.add(
           Container(
@@ -275,6 +275,24 @@ class MealMainContent extends StatelessWidget {
 
             // Ingredients List
             ..._buildIngredientsList,
+
+            // Instructions Section
+            const SizedBox(height: 25),
+            Row(
+              children: [
+                const Icon(Icons.list, color: Color(0xff1A202C), size: 20),
+                const SizedBox(width: 10),
+                Text(
+                  'Instructions',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff1A202C),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),

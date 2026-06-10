@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/helpers/spacing.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:food_app/features/screens/ui/saved_meals/saved_meal_widget/hero_widget.dart';
+import 'package:food_app/features/screens/ui/saved_meals/saved_meal_widget/name_of_meal_in_save_screen.dart';
+import 'package:food_app/features/screens/ui/saved_meals/saved_meal_widget/raing_and_contaner_in_save_screen.dart';
+import 'package:food_app/features/screens/ui/saved_meals/saved_meal_widget/star_in_save_screen.dart';
 
-import '../../../../../core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
 import '../../../../../core/model/food_model/meals.dart';
-import '../../../../../core/theme/font_weight.dart';
-import '../../home/widget_home/custom_cached_image.dart';
 
 class SavedMealItem extends StatelessWidget {
   final Meal meal;
@@ -21,136 +20,12 @@ class SavedMealItem extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Hero(
-                tag: meal.idMeal!,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                  child: CustomCachedImage(
-                    meal: meal,
-                    hight: 350,
-                    widthmeal: double.infinity,
-                    width: double.infinity,
-                    imageUrl: meal.strMealThumb!,
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 10,
-                right: 10,
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color(0xffeae7e7).withValues(alpha: .5),
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      context.read<SavemealCubit>().toggleFavorite(meal);
-                    },
-                    icon: const Icon(Icons.favorite),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 15,
-                left: 15,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xff7c7d7a).withValues(alpha: .5),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.star, color: Colors.white),
-                      Text('4.5', style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                ),
-              ),
+              HeroWidgetAndImage(meal: meal),
+              ContanerAndLoveICong(meal: meal),
+              const RatingAndContainerWidgetInSaveScreen(),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.all(12),
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
-              color: Colors.white,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  meal.strMeal ?? '',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 20,
-                    fontWeight: FontWeightManger.fontWeightSemiBold,
-                    color: Colors.black,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 5),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffeae7e7),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        meal.strArea ?? '',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 14,
-                          fontWeight: FontWeightManger.fontWeightMedium,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    horizontalSpace(8),
-                    Container(
-                      width: 7,
-                      height: 7,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.black,
-                      ),
-                    ),
-                    horizontalSpace(6),
-                    Container(
-                      margin: const EdgeInsets.only(top: 5),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 16, 179, 29),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        'Healthy',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 14,
-                          fontWeight: FontWeightManger.fontWeightMedium,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          NameOfMealAndDetialInSaveScreen(meal: meal),
           verticalSpace(10),
           const Divider(),
         ],
