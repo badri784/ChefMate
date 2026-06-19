@@ -11,6 +11,5 @@ void main() async {
   await HiveService.init();
   Bloc.observer = SimbleBlocObserver();
   await setupDependanceInjection();
-  // debugPrintRebuildDirtyWidgets = true;
   runApp(MyApp());
 }

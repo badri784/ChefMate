@@ -11,10 +11,11 @@ class AppStateCubit extends Cubit<AppStateState> {
   final MyRepo myRepo;
   List<Meal> searchedMealList = [];
   String? lastFetchedChar;
-  // TextEditingController searchController = TextEditingController();
+
+  // search by first letter
   Future<void> getMeals(String firstChar) async {
     try {
-      lastFetchedChar = firstChar;
+      // lastFetchedChar = firstChar;
       emit(AppStateLoading());
       final FoodModel response = await myRepo.getMeals(firstChar);
       searchedMealList = response.meals;
@@ -30,6 +31,7 @@ class AppStateCubit extends Cubit<AppStateState> {
     }
   }
 
+  // search by Id
   Future<void> searchByIdGetIt(String id) async {
     try {
       emit(AppStateLoading());
@@ -40,6 +42,7 @@ class AppStateCubit extends Cubit<AppStateState> {
     }
   }
 
+  // search by name from searched list
   Future<void> searchByName(String searchMealName) async {
     try {
       emit(AppStateLoading());

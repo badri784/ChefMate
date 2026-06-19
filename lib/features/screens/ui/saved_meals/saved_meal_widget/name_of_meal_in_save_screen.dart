@@ -11,6 +11,7 @@ class NameOfMealAndDetialInSaveScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool mealStrAreaNull = meal.strArea == null;
     return Container(
       padding: const EdgeInsets.all(12),
       width: double.infinity,
@@ -34,35 +35,38 @@ class NameOfMealAndDetialInSaveScreen extends StatelessWidget {
           ),
           Row(
             children: [
-              Container(
-                margin: const EdgeInsets.only(top: 5),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xffeae7e7),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  meal.strArea ?? '',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 14,
-                    fontWeight: FontWeightManger.fontWeightMedium,
-                    color: Colors.black,
+              if (meal.strArea != null)
+                Container(
+                  margin: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xffeae7e7),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    meal.strArea ?? 'Null',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14,
+                      fontWeight: FontWeightManger.fontWeightMedium,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-              horizontalSpace(8),
-              Container(
-                width: 7,
-                height: 7,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black,
-                ),
-              ),
-              horizontalSpace(6),
+              mealStrAreaNull ? const SizedBox.shrink() : horizontalSpace(8),
+              mealStrAreaNull
+                  ? const SizedBox.shrink()
+                  : Container(
+                      width: 3,
+                      height: 20,
+                      decoration: const BoxDecoration(
+                        // shape: BoxShape.circle,
+                        color: Colors.black,
+                      ),
+                    ),
+              mealStrAreaNull ? const SizedBox.shrink() : horizontalSpace(8),
               Container(
                 margin: const EdgeInsets.only(top: 5),
                 padding: const EdgeInsets.symmetric(

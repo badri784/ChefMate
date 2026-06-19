@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'routes.dart';
 
 import 'package:flutter/material.dart';
@@ -50,13 +51,7 @@ class AppRouter {
         final arg = settings.arguments;
         if (arg is Meal) {
           return MaterialPageRoute(
-            builder: (context) =>
-                // BlocProvider(
-                //   create: (context) =>
-                //       AppStateCubit(myRepo)..getMeals(arg.toString()),
-                // child:
-                DetailScreen(meal: arg),
-            // ),
+            builder: (context) => DetailScreen(meal: arg),
           );
         } else if (arg is String) {
           // String safeName = Uri.encodeQueryComponent(arg);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
+import 'package:food_app/features/screens/ui/detail_screen.dart/widget_ditail_screen/build_top_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:food_app/core/model/food_model/meals.dart';
 
@@ -11,9 +12,11 @@ class DetailTopBar extends StatelessWidget {
 
   Future<void> shareUrlYoutube(BuildContext context) async {
     if (meal.strYoutube != null && meal.strYoutube!.isNotEmpty) {
+      final String? mealName = meal.strMeal;
+      final String? youtubeUrl = meal.strYoutube;
       await Share.share(
-        'Meal video Link: ${meal.strYoutube!}',
-        subject: 'Recipe',
+        'ChefMate : Meal video Link: $youtubeUrl',
+        subject: mealName,
       );
     } else {
       showDialog(
@@ -33,24 +36,6 @@ class DetailTopBar extends StatelessWidget {
     }
   }
 
-  Widget _buildTopButton({
-    required IconData icon,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.3),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(icon, color: color, size: 24),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -60,14 +45,14 @@ class DetailTopBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildTopButton(
+          BuildTopButton(
             icon: Icons.arrow_back,
             color: Colors.white,
             onTap: () => Navigator.pop(context),
           ),
           Row(
             children: [
-              _buildTopButton(
+              BuildTopButton(
                 icon: Icons.share,
                 color: Colors.white,
                 onTap: () {
@@ -80,7 +65,7 @@ class DetailTopBar extends StatelessWidget {
                   final bool isFavorite = context
                       .read<SavemealCubit>()
                       .isMealSaved(meal.idMeal);
-                  return _buildTopButton(
+                  return BuildTopButton(
                     icon: isFavorite ? Icons.favorite : Icons.favorite_border,
                     color: Colors.white,
                     onTap: () {
