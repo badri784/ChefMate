@@ -14,9 +14,7 @@ class MealsSuccessListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
+    return SliverList.builder(
       itemCount: foodModel.meals.length,
       itemBuilder: (context, index) {
         return GestureDetector(

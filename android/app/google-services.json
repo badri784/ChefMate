@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1062697221169",
+    "project_id": "chefmate-af728",
+    "storage_bucket": "chefmate-af728.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062697221169:android:480063fd2de95c4f272910",
+        "android_client_info": {
+          "package_name": "com.example.food_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzTViO4cy9PHeeVPtDyrqnTJgjf-zh5H4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

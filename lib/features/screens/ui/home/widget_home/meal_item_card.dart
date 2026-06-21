@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_app/core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
-import 'package:food_app/features/screens/ui/home/widget_home/custom_cached_image.dart';
+import 'package:food_app/features/screens/ui/home/widget_home/meal_item_card_in_home/meal_category_tags.dart';
+import 'package:food_app/features/screens/ui/home/widget_home/meal_item_card_in_home/meal_image_with_favorite.dart';
+import 'package:food_app/features/screens/ui/home/widget_home/meal_item_card_in_home/meal_time_and_difficulty.dart';
+import 'package:food_app/features/screens/ui/home/widget_home/meal_item_card_in_home/meal_title_and_rating.dart';
+
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/model/food_model/meals.dart';
-import '../../../../../core/theme/font_weight.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MealItemCard extends StatelessWidget {
   final Meal meal;
@@ -46,155 +46,15 @@ class MealItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           verticalSpace(5),
-          Stack(
-            children: [
-              Hero(
-                tag: meal.idMeal!,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  child: CustomCachedImage(
-                    hightMeal: 300,
-                    widthmeal: double.infinity,
-                    meal: meal,
-                    hight: 45,
-                    width: 45,
-                    imageUrl: meal.strMealThumb!,
-                    boxFit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Positioned(
-                right: 20,
-                top: 10,
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color(0xff766f68).withValues(alpha: .8),
-                  ),
-                  child: BlocBuilder<SavemealCubit, SavemealState>(
-                    builder: (context, state) {
-                      final isFavorite = context
-                          .read<SavemealCubit>()
-                          .isMealSaved(meal.idMeal);
-                      return IconButton(
-                        onPressed: () {
-                          context.read<SavemealCubit>().toggleFavorite(meal);
-                        },
-                        icon: Icon(
-                          isFavorite
-                              ? Icons.favorite
-                              : Icons.favorite_border_outlined,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
+          MealImageWithFavorite(meal: meal),
           verticalSpace(5),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  meal.strMeal!,
-                  style: GoogleFonts.montserrat(
-                    fontWeight: FontWeightManger.fontWeightSemiBold,
-                    fontSize: 16,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              const Spacer(),
-              Container(
-                margin: const EdgeInsets.only(right: 10),
-                padding: const EdgeInsets.all(3),
-                decoration: const BoxDecoration(
-                  color: Color(0xffeae7e7),
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.star_border, color: Color(0xff7f620e)),
-                    Text(
-                      randomRating,
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeightManger.fontWeightMedium,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          MealTitleAndRating(title: meal.strMeal!, rating: randomRating),
           verticalSpace(5),
-          Row(
-            children: [
-              const Icon(Icons.query_builder),
-              horizontalSpace(4),
-              Text(
-                randomTimer,
-                style: GoogleFonts.inter(
-                  fontWeight: FontWeightManger.fontWeightMedium,
-                  fontSize: 12,
-                ),
-              ),
-              horizontalSpace(4),
-              const Icon(Icons.food_bank_rounded),
-              horizontalSpace(4),
-              Text(
-                'Intermediate',
-                style: GoogleFonts.inter(
-                  fontWeight: FontWeightManger.fontWeightMedium,
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
+          MealTimeAndDifficulty(time: randomTimer),
           verticalSpace(5),
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(right: 10),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                decoration: const BoxDecoration(
-                  color: Color(0xffeae7e7),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: Text(
-                  meal.strCategory ?? 'Unknown',
-                  style: GoogleFonts.inter(
-                    fontWeight: FontWeightManger.fontWeightMedium,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(right: 10),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                decoration: const BoxDecoration(
-                  color: Color(0xffeae7e7),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: Text(
-                  meal.strArea ?? 'Unknown',
-                  style: GoogleFonts.inter(
-                    fontWeight: FontWeightManger.fontWeightMedium,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-            ],
+          MealCategoryTags(
+            category: meal.strCategory ?? 'Unknown',
+            area: meal.strArea ?? 'Unknown',
           ),
         ],
       ),

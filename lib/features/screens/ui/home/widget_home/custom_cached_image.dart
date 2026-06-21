@@ -28,13 +28,9 @@ class CustomCachedImage extends StatelessWidget {
       height: hightMeal,
       imageUrl: imageUrl ?? '',
       fadeInDuration: const Duration(milliseconds: 100),
-      placeholder: (context, url) => SizedBox(
-        height: 300,
-        child: Image.asset(
-          'assets/image/loading_gray.gif',
-          height: hight,
-          width: width,
-        ),
+      placeholder: (context, url) => const SizedBox(
+        height: 50,
+        child: Center(child: CircularProgressIndicator()),
       ),
       errorWidget: (context, url, error) => const Icon(Icons.error),
       fit: boxFit ?? BoxFit.cover,

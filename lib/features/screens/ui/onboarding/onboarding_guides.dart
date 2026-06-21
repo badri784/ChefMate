@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/core/helpers/extension.dart';
+import 'package:food_app/core/routing/routes.dart';
 import '../../../../core/helpers/spacing.dart';
 
 class OnboardingGuides extends StatelessWidget {
@@ -115,7 +117,9 @@ class OnboardingGuides extends StatelessWidget {
             // ),
             // verticalSpace(22),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.pushnamed(Routes.onboardingDiscover);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xffff5722),
                 padding: const EdgeInsets.symmetric(

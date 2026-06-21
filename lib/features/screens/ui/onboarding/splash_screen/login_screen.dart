@@ -8,16 +8,6 @@ class SplashScreenTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'back',
-          style: TextStyle(
-            color: Color(0xff593e38),
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       body: SafeArea(

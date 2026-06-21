@@ -13,25 +13,33 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10, top: 15, right: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const WelcomeText(),
-            verticalSpace(8),
-            const TextFeildSearch(),
-            verticalSpace(6),
-            const CategoryAndShowAll(),
-            // verticalSpace(1),
-            const Category(),
-            verticalSpace(6),
-            const TrendingMealsHeader(),
-            const TrendingMealsBlocBuilder(),
-          ],
+    return CustomScrollView(
+      physics: const BouncingScrollPhysics(),
+      slivers: [
+        // Header widgets wrapped in SliverToBoxAdapter
+        SliverPadding(
+          padding: const EdgeInsets.only(left: 10, top: 15, right: 10),
+          sliver: SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const WelcomeText(),
+                verticalSpace(8),
+                const TextFeildSearch(),
+                verticalSpace(6),
+                const CategoryAndShowAll(),
+                const Category(),
+                verticalSpace(6),
+                const TrendingMealsHeader(),
+              ],
+            ),
+          ),
         ),
-      ),
+        const SliverPadding(
+          padding: EdgeInsets.only(left: 10, right: 10),
+          sliver: TrendingMealsBlocBuilder(),
+        ),
+      ],
     );
   }
 }

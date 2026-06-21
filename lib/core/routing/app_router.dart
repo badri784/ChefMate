@@ -14,7 +14,7 @@ import '../../features/screens/ui/detail_screen.dart/search_detail_screen.dart';
 import '../../features/screens/ui/onboarding/splash_screen/splash_screen.dart';
 import '../../features/screens/ui/onboarding/onboarding_discover.dart';
 import '../../features/screens/ui/onboarding/onboarding_guides.dart';
-import '../../features/screens/ui/onboarding/splash_screen/splash_screen_two.dart';
+import '../../features/screens/ui/onboarding/splash_screen/login_screen.dart';
 import '../../features/widget/nacigation_bottom.dart';
 
 class AppRouter {

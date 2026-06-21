@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BuildTopButton extends StatelessWidget {
-  const BuildTopButton({this.onTap, this.icon, this.color, super.key});
+  const BuildTopButton({super.key, this.onTap, this.icon, this.color});
   final VoidCallback? onTap;
   final IconData? icon;
   final Color? color;

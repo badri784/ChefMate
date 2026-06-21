@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
+import 'package:food_app/core/theme/font_weight.dart';
 import 'package:food_app/features/screens/ui/detail_screen.dart/widget_ditail_screen/build_top_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:food_app/core/model/food_model/meals.dart';
 
@@ -70,6 +72,14 @@ class DetailTopBar extends StatelessWidget {
                     color: Colors.white,
                     onTap: () {
                       context.read<SavemealCubit>().toggleFavorite(meal);
+
+                      showToast(
+                        message: isFavorite
+                            ? 'Meal removed from favorites'
+                            : 'Meal added to favorites',
+                        color: Colors.green,
+                        context: context,
+                      );
                     },
                   );
                 },
@@ -80,4 +90,28 @@ class DetailTopBar extends StatelessWidget {
       ),
     );
   }
+}
+
+void showToast({
+  required String message,
+  required Color color,
+  required BuildContext context,
+}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        message,
+        style: GoogleFonts.montserrat(
+          color: Colors.white,
+          fontWeight: FontWeightManger.fontWeightMedium,
+        ),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: color,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+    ),
+  );
 }

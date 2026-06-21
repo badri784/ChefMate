@@ -57,18 +57,20 @@ class TrendingMealsBlocBuilder extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AppStateInitial) {
-          return const MealsInitialView();
+          return const SliverToBoxAdapter(child: MealsInitialView());
         }
         if (state is AppStateNoMealsFound) {
-          return MealsNotFoundView(message: state.errorMessage);
+          return SliverToBoxAdapter(
+            child: MealsNotFoundView(message: state.errorMessage),
+          );
         }
         if (state is AppStateLoading) {
-          return const MealsLoadingView();
+          return const SliverToBoxAdapter(child: MealsLoadingView());
         }
         if (state is AppStateSuccess) {
           return MealsSuccessListView(foodModel: state.foodModel);
         }
-        return const SizedBox.shrink();
+        return const SliverToBoxAdapter(child: SizedBox.shrink());
       },
     );
   }
