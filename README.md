@@ -128,6 +128,20 @@ flutter run
 
 ---
 
+### 📲 Download APK
+
+Don't want to build from source? Download the latest APK directly:
+
+<p align="center">
+  <a href="https://github.com/badri784/ChefMate/releases/latest/download/ChefMate.apk">
+    <img src="https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
+  </a>
+</p>
+
+> **Note:** You may need to enable **"Install from unknown sources"** on your Android device.
+
+---
+
 ## 📸 Screenshots
 
 <p align="center">
