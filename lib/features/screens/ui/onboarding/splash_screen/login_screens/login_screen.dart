@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_app/core/logic/cubit/sing_to_app/signup/sign_up_cubit.dart';
 import '../../../../../../core/helpers/extension.dart';
 import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/logic/cubit/sing_to_app/login/login_cubit.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/features/screens/ui/onboarding/splash_screen/login_screens/login_widget/custom_text_feiled.dart';
+import 'package:food_app/features/screens/ui/onboarding/splash_screen/login_screens/splash-screen_logging_widget/custom_text_feiled.dart';
 
 class LoginTextFields extends StatefulWidget {
   const LoginTextFields({

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/core/helpers/spacing.dart';
-import 'login_screens/login_widget/login_header_section.dart';
-import 'login_screens/login_widget/login_buttons_section.dart';
-import 'login_screens/login_widget/login_social_section.dart';
-import 'login_screens/login_widget/login_footer_section.dart';
+import 'login_screens/splash-screen_logging_widget/login_header_section.dart';
+import 'login_screens/splash-screen_logging_widget/login_buttons_section.dart';
+import 'login_screens/splash-screen_logging_widget/login_social_section.dart';
+import 'login_screens/splash-screen_logging_widget/login_footer_section.dart';
 
 class SplashScreenTwo extends StatelessWidget {
   const SplashScreenTwo({super.key});
