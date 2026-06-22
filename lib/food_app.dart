@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         onGenerateRoute: appRouter.appRouter,
-        initialRoute: Routes.onboardingDiscover,
+        initialRoute: Routes.splashScreenTwo,
         debugShowCheckedModeBanner: false,
       ),
     );

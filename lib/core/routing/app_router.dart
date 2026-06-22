@@ -1,5 +1,8 @@
 import 'dart:math';
 
+import 'package:food_app/core/logic/cubit/sing_to_app/signup/sign_up_cubit.dart';
+import '../../features/screens/ui/onboarding/splash_screen/login_screens/sign_up_screen.dart';
+
 import 'routes.dart';
 
 import 'package:flutter/material.dart';
@@ -14,7 +17,7 @@ import '../../features/screens/ui/detail_screen.dart/search_detail_screen.dart';
 import '../../features/screens/ui/onboarding/splash_screen/splash_screen.dart';
 import '../../features/screens/ui/onboarding/onboarding_discover.dart';
 import '../../features/screens/ui/onboarding/onboarding_guides.dart';
-import '../../features/screens/ui/onboarding/splash_screen/login_screen.dart';
+import '../../features/screens/ui/onboarding/splash_screen/login_screens/login_screen.dart';
 import '../../features/widget/nacigation_bottom.dart';
 
 class AppRouter {
@@ -74,6 +77,14 @@ class AppRouter {
             create: (context) =>
                 CategoryCubit(myRepo)..getCategory(categoryName.toLowerCase()),
             child: CategoryDetail(categoryName: categoryName),
+          ),
+        );
+
+      case Routes.signUpScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => SignUpCubit(),
+            child: const SignUpScreen(),
           ),
         );
 
