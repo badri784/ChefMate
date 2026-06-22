@@ -1,5 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/core/helpers/extension.dart';
 import 'package:food_app/core/helpers/spacing.dart';
+import 'package:food_app/core/routing/routes.dart';
 import 'package:food_app/core/theme/font_weight.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,6 +26,10 @@ class SignUpFooter extends StatelessWidget {
                 ),
               ),
               TextSpan(
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    context.pushReplacementName(Routes.loginScreen);
+                  },
                 text: 'Sign in',
                 style: GoogleFonts.montserrat(
                   color: const Color(0xffB02F00),

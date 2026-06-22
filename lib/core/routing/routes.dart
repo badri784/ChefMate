@@ -9,4 +9,5 @@ class Routes {
   static const String mealDetialScreenFromCategopry =
       '/MealDetialScreenFromCategopry';
   static const String signUpScreen = '/SignUpScreen';
+  static const String loginScreen = '/LoginScreen';
 }

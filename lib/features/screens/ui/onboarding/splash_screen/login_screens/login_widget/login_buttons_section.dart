@@ -35,7 +35,9 @@ class LoginButtonsSection extends StatelessWidget {
         ),
         verticalSpace(12),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            context.pushReplacementName(Routes.loginScreen);
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white.withOpacity(0.05),
             foregroundColor: Colors.white,

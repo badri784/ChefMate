@@ -17,27 +17,45 @@ class LoginCubit extends Cubit<LoginState> {
   }) async {
     emit(LoginLoading());
     try {
-      final Usercredential = await _loginService.logInWithEmailAndPassword(
-        email: email,
-        password: password,
+      final userCredential = await _loginService.logInWithEmailAndPassword(
+        email: email.trim(),
+        password: password.trim(),
       );
-      if (Usercredential != null) {
+      emit(LoginLoading());
+
+      if (userCredential != null) {
         emit(LoginSuccess());
-        debugPrint('▶️${Usercredential.user.toString()}');
+        debugPrint('▶️${userCredential.user.toString()}');
       } else {
         emit(LoginFailure(error: 'Something went wrong'));
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        emit(LoginFailure(error: 'No user found for that email.'));
-      } else if (e.code == 'wrong-password') {
-        emit(LoginFailure(error: 'Wrong password provided for that user.'));
-      } else {
-        emit(LoginFailure(error: e.message ?? 'Authentication failed.'));
+      switch (e.code) {
+        case 'user-not-found':
+          emit(LoginFailure(error: 'No account found for that email.'));
+          break;
+        case 'wrong-password':
+          emit(LoginFailure(error: 'Wrong password. Please try again.'));
+          break;
+        case 'invalid-credential':
+          emit(LoginFailure(error: 'Invalid email or password.'));
+          break;
+        case 'user-disabled':
+          emit(LoginFailure(error: 'This account has been disabled.'));
+          break;
+        case 'too-many-requests':
+          emit(
+            LoginFailure(error: 'Too many attempts. Please try again later.'),
+          );
+          break;
+        case 'invalid-email':
+          emit(LoginFailure(error: 'The email address is invalid.'));
+          break;
+        default:
+          emit(LoginFailure(error: e.message ?? 'Authentication failed.'));
       }
     } catch (e) {
-      debugPrint(':::::::::::${e.toString()}');
-      emit(LoginFailure(error: e.toString()));
+      emit(LoginFailure(error: 'Login failed. Please check your credentials.'));
     }
   }
 }

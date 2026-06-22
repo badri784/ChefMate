@@ -14,6 +14,7 @@ class CustomTextFeiled extends StatelessWidget {
     this.initialValue,
     this.onChanged,
     this.suffixIcon,
+    this.prefixIcon,
   });
   final String? labelText;
   final String? hintText;
@@ -26,6 +27,7 @@ class CustomTextFeiled extends StatelessWidget {
   final String? initialValue;
   final ValueChanged<String>? onChanged;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +39,14 @@ class CustomTextFeiled extends StatelessWidget {
         hintText: hintText,
         enabled: enabled ?? true,
         suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
       ),
       onChanged: onChanged,
       keyboardType: keyboardType,
       obscureText: obscureText,
       validator: validator,
       initialValue: initialValue,
+
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
