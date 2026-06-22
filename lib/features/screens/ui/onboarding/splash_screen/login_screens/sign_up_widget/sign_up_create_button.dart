@@ -8,11 +8,13 @@ class SignUpCreateButton extends StatelessWidget {
     required this.formKey,
     required this.emailController,
     required this.passwordController,
+    required this.nameController,
   });
 
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final TextEditingController nameController;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class SignUpCreateButton extends StatelessWidget {
               await context
                   .read<SignUpCubit>()
                   .createAccountWithEmailAndPassword(
+                    name: nameController.text.trim(),
                     email: emailController.text.trim(),
                     password: passwordController.text.trim(),
                   );

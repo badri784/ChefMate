@@ -15,24 +15,30 @@ class SignUpCubit extends Cubit<SignUpState> {
   Future<void> createAccountWithEmailAndPassword({
     required String email,
     required String password,
+    required String name,
   }) async {
     emit(SignUpLoading());
     try {
       final Usercredential = await _loginService
-          .createAccountWithEmailAndPassword(email: email, password: password);
+          .createAccountWithEmailAndPassword(
+            email: email,
+            password: password,
+            name: name,
+          );
       if (Usercredential != null) {
+        // save the user data in the firestore
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(Usercredential.user!.uid)
+            .set({
+              'email': email,
+              'name': name,
+              'id': Usercredential.user!.uid,
+            });
         emit(SignUpSuccess());
         debugPrint('▶️${Usercredential.user.toString()}');
       } else {
         emit(SignUpFailure(error: 'Something went wrong'));
-      }
-
-      final user = firebase.currentUser;
-      if (user != null) {
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-          'email': email,
-          'password': password,
-        });
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

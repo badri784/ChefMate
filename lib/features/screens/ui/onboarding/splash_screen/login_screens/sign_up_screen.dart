@@ -73,6 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   verticalSpace(25),
                   SignUpCreateButton(
+                    nameController: _nameController,
                     formKey: _formKey,
                     emailController: _emailController,
                     passwordController: _passwordController,

@@ -11,6 +11,7 @@ class LoginRepo implements LoginService {
   Future<UserCredential> createAccountWithEmailAndPassword({
     required String email,
     required String password,
+    required String name,
   }) async {
     return await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
@@ -26,5 +27,16 @@ class LoginRepo implements LoginService {
   @override
   Future logInWithFacebook() {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<UserCredential> logInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    return await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 }
