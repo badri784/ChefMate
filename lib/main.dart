@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await HiveService.init();
-  Bloc.observer = SimbleBlocObserver();
   await setupDependanceInjection();
+  Bloc.observer = SimbleBlocObserver();
   runApp(MyApp());
 }

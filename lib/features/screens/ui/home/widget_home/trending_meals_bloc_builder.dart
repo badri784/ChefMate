@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/logic/cubit/food_meal_category/app_state_cubit.dart';
 import 'meals_initial_view.dart';
 import 'meals_loading_view.dart';
-import 'meals_not_found_view.dart';
 import 'meals_success_list_view.dart';
 
 class TrendingMealsBlocBuilder extends StatelessWidget {
@@ -55,14 +54,10 @@ class TrendingMealsBlocBuilder extends StatelessWidget {
           }
         }
       },
+      buildWhen: (previous, current) => current is! AppStateError,
       builder: (context, state) {
         if (state is AppStateInitial) {
           return const SliverToBoxAdapter(child: MealsInitialView());
-        }
-        if (state is AppStateNoMealsFound) {
-          return SliverToBoxAdapter(
-            child: MealsNotFoundView(message: state.errorMessage),
-          );
         }
         if (state is AppStateLoading) {
           return const SliverToBoxAdapter(child: MealsLoadingView());

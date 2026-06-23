@@ -21,7 +21,6 @@ class LoginCubit extends Cubit<LoginState> {
         email: email.trim(),
         password: password.trim(),
       );
-      emit(LoginLoading());
 
       if (userCredential != null) {
         emit(LoginSuccess());

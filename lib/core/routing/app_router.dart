@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:food_app/auth_gate.dart';
+import 'package:food_app/core/logic/cubit/google_login/google_login_cubit.dart';
 import 'package:food_app/core/logic/cubit/sing_to_app/login/login_cubit.dart';
 import 'package:food_app/core/logic/cubit/sing_to_app/signup/sign_up_cubit.dart';
 import 'package:food_app/features/screens/ui/onboarding/splash_screen/login_screens/login_screen.dart';
@@ -27,6 +29,13 @@ class AppRouter {
   AppRouter(this.myRepo);
   Route appRouter(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.authGate:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => GoogleLoginCubit(),
+            child: const AuthGate(),
+          ),
+        );
       case Routes.onboardingDiscover:
         return MaterialPageRoute(
           builder: (context) => const OnboardingDiscover(),
@@ -36,7 +45,12 @@ class AppRouter {
           builder: (context) => const OnboardingGuides(),
         );
       case Routes.splashScreenTwo:
-        return MaterialPageRoute(builder: (context) => const SplashScreenTwo());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => GoogleLoginCubit(),
+            child: const SplashScreenTwo(),
+          ),
+        );
       case Routes.lastScreen:
         return MaterialPageRoute(builder: (context) => const SpashScreen());
       case Routes.home:

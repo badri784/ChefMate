@@ -11,11 +11,8 @@ final class AppStateSuccess extends AppStateState {
   AppStateSuccess(this.foodModel);
 }
 
+
 final class AppStateError extends AppStateState {
   final String errorMessage;
   AppStateError(this.errorMessage);
-}
-
-final class AppStateNoMealsFound extends AppStateError {
-  AppStateNoMealsFound() : super('No meals found');
 }

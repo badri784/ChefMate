@@ -53,7 +53,7 @@ class AppStateCubit extends Cubit<AppStateState> {
       if (searchMealByName.isNotEmpty) {
         emit(AppStateSuccess(FoodModel(meals: searchMealByName.toList())));
       } else {
-        emit(AppStateNoMealsFound());
+        emit(AppStateError('No meals found'));
       }
     } catch (e) {
       emit(AppStateError(e.toString()));
