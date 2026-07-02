@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_app/core/logic/cubit/sing_to_app/login/login_cubit.dart';
+import 'package:food_app/core/logic/cubit/sing_to_app_with_email_and_password/login/login_cubit.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({super.key, this.onPressed});

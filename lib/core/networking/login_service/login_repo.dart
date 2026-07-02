@@ -19,15 +19,9 @@ class LoginRepo implements LoginService {
     );
   }
 
-  @override
-  Future logInWithGoogle() {
-    throw UnimplementedError();
-  }
+  
 
-  @override
-  Future logInWithFacebook() {
-    throw UnimplementedError();
-  }
+
 
   @override
   Future<UserCredential> logInWithEmailAndPassword({

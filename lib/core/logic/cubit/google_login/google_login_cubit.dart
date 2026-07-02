@@ -7,24 +7,34 @@ part 'google_login_state.dart';
 class GoogleLoginCubit extends Cubit<GoogleLoginState> {
   GoogleLoginCubit() : super(GoogleLoginInitial());
 
-  Future<UserCredential?> loginWithGoogle() async {
+  Future<void> loginWithGoogle() async {
     emit(GoogleLoginLoading());
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn.instance
-          .authenticate();
-      final GoogleSignInAuthentication googleAuth = googleUser!.authentication;
+      // google_sign_in v7+ uses the singleton instance & authenticate()
+      final GoogleSignInAccount? googleUser =
+          await GoogleSignIn.instance.authenticate();
 
+      if (googleUser == null) {
+        // User cancelled the sign-in
+        emit(GoogleLoginFailure(message: 'Sign-in cancelled'));
+        return;
+      }
+
+      // Obtain the ID token from the authenticated account
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Create a new credential (idToken is sufficient for Firebase auth)
       final credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
-      final result = await FirebaseAuth.instance.signInWithCredential(
-        credential,
-      );
+
+      // Once signed in, return the UserCredential
+      await FirebaseAuth.instance.signInWithCredential(credential);
       emit(GoogleLoginSuccess());
-      return result;
     } catch (e) {
       emit(GoogleLoginFailure(message: e.toString()));
     }
-    return null;
   }
 }
+

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/helpers/extension.dart';
 import '../../../../../../core/helpers/spacing.dart';
-import '../../../../../../core/logic/cubit/sing_to_app/login/login_cubit.dart';
+import '../../../../../../core/logic/cubit/sing_to_app_with_email_and_password/login/login_cubit.dart';
 import '../../../../../../core/routing/routes.dart';
 import 'login_screen_widget/login_header.dart';
 import 'login_screen_widget/login_text_fields.dart';

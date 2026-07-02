@@ -25,13 +25,13 @@ class LoginSocialSection extends StatelessWidget {
           );
         }
         if (state is GoogleLoginFailure) {
-          Navigator.of(context).pop(); // dismiss loading dialog
+          Navigator.of(context).pop();
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message.toString())));
         }
         if (state is GoogleLoginSuccess) {
-          Navigator.of(context).pop(); // dismiss loading dialog
+          Navigator.of(context).pop();
           context.pushReplacementName(Routes.home);
         }
       },
@@ -75,12 +75,14 @@ class LoginSocialIcons extends StatelessWidget {
               onTap: () {
                 context.read<GoogleLoginCubit>().loginWithGoogle();
               },
-              child: state is GoogleLoginLoading
-                  ? const CircularProgressIndicator()
-                  : const CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: FaIcon(FontAwesomeIcons.google),
-                    ),
+              child:
+                  //  state is GoogleLoginLoading
+                  //     ? const CircularProgressIndicator()
+                  //     :
+                  const CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: FaIcon(FontAwesomeIcons.google),
+                  ),
             ),
             horizontalSpace(12),
             GestureDetector(

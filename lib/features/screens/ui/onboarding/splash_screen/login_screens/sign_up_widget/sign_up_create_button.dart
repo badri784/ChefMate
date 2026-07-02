@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_app/core/logic/cubit/sing_to_app/signup/sign_up_cubit.dart';
+import 'package:food_app/core/logic/cubit/sing_to_app_with_email_and_password/signup/sign_up_cubit.dart';
 
 class SignUpCreateButton extends StatelessWidget {
   const SignUpCreateButton({

@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:food_app/auth_gate.dart';
 import 'package:food_app/core/logic/cubit/google_login/google_login_cubit.dart';
-import 'package:food_app/core/logic/cubit/sing_to_app/login/login_cubit.dart';
-import 'package:food_app/core/logic/cubit/sing_to_app/signup/sign_up_cubit.dart';
+import 'package:food_app/core/logic/cubit/sing_to_app_with_email_and_password/login/login_cubit.dart';
+import 'package:food_app/core/logic/cubit/sing_to_app_with_email_and_password/signup/sign_up_cubit.dart';
 import 'package:food_app/features/screens/ui/onboarding/splash_screen/login_screens/login_screen.dart';
 import '../../features/screens/ui/onboarding/splash_screen/login_screens/sign_up_screen.dart';
 
