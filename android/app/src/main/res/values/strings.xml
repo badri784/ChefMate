@@ -1,2 +1,5 @@
-    <string name="facebook_app_id">1712577570011722</string>
-    <string name="facebook_client_token">1316d07f620d3bb03ad64b2e8cacf507</string>
+<resources>
+    <string name="app_name">ChefMate</string>
+    <string name="facebook_app_id">2571048036447514</string>
+    <string name="facebook_client_token">e22441466d798747ef38939f48b24481</string>
+</resources>

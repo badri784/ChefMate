@@ -18,9 +18,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
+    // تم مسح بلوك kotlinOptions القديم من هنا
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
@@ -40,6 +38,11 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+}
+
+// دي الطريقة الجديدة اللي كوتلن 2.2.20 بيطلبها
+kotlin {
+    jvmToolchain(17)
 }
 
 flutter {
