@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/dependance_injection/di.dart';
+import 'package:food_app/core/helpers/extension.dart';
 import 'package:food_app/core/networking/login_service/login_service.dart';
+import 'package:food_app/core/routing/routes.dart';
 
 part 'login_state.dart';
 
@@ -55,6 +57,19 @@ class LoginCubit extends Cubit<LoginState> {
       }
     } catch (e) {
       emit(LoginFailure(error: 'Login failed. Please check your credentials.'));
+    }
+  }
+
+  Future<void> logOut(BuildContext context) async {
+    emit(LoginLoading());
+    try {
+      await FirebaseAuth.instance.signOut();
+      emit(LoginSuccess());
+      if (context.mounted) {
+        context.pushAndRemoveUntilname(Routes.splashScreenTwo);
+      }
+    } catch (e) {
+      emit(LoginFailure(error: 'logOut failed.'));
     }
   }
 }

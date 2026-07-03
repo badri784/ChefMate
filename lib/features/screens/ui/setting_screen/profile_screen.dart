@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/helpers/spacing.dart';
-import '../../../core/theme/font_weight.dart';
+import '../../../../core/helpers/spacing.dart';
+import '../../../../core/logic/cubit/sing_to_app_with_email_and_password/login/login_cubit.dart';
+import '../../../../core/theme/font_weight.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -159,12 +161,18 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () {},
                   ),
                   verticalSpace(20),
-                  _buildMenuItem(
-                    icon: Icons.logout,
-                    title: 'Log Out',
-                    color: Colors.red,
-                    isLogout: true,
-                    onTap: () {},
+                  BlocBuilder<LoginCubit, LoginState>(
+                    builder: (context, state) {
+                      return _buildMenuItem(
+                        icon: Icons.logout,
+                        title: 'Log Out',
+                        color: Colors.red,
+                        isLogout: true,
+                        onTap: () {
+                          context.read<LoginCubit>().logOut(context);
+                        },
+                      );
+                    },
                   ),
                   verticalSpace(40),
                 ],

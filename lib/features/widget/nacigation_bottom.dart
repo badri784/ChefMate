@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider;
+import 'package:food_app/core/logic/cubit/sing_to_app_with_email_and_password/login/login_cubit.dart';
 import '../screens/ui/home/home_screen.dart';
-import '../screens/ui/profile_screen.dart';
+import '../screens/ui/setting_screen/profile_screen.dart';
 import '../screens/ui/saved_meals/saved_screen.dart';
 // import '../screens/ui/search_screen.dart';
 
@@ -18,7 +20,10 @@ class _HomeState extends State<Home> {
     // const SearchScreen(),
     const SavedScreen(),
 
-    const ProfileScreen(),
+    BlocProvider(
+      create: (context) => LoginCubit(),
+      child: const ProfileScreen(),
+    ),
   ];
   @override
   Widget build(BuildContext context) {
