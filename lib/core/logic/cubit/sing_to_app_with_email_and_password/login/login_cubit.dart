@@ -20,8 +20,8 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     try {
       final userCredential = await _loginService.logInWithEmailAndPassword(
-        email: email.trim(),
-        password: password.trim(),
+        email: email,
+        password: password,
       );
 
       if (userCredential != null) {

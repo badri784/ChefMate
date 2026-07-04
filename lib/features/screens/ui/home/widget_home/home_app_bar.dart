@@ -7,7 +7,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       primary: true,
-      animateColor: true,
+
+      // animateColor: false,
       leading: Padding(
         padding: const EdgeInsets.only(left: 8),
         child: Container(
