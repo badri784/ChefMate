@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_app/core/logic/user_info/user_info_cubit.dart';
 import 'package:food_app/features/screens/ui/setting_screen/setting_screen_widget/build_state_item.dart';
 import 'package:food_app/features/screens/ui/setting_screen/setting_screen_widget/menu_item_column.dart';
 import 'package:food_app/features/screens/ui/setting_screen/setting_screen_widget/profile_image_stack.dart';
@@ -23,11 +25,7 @@ class ProfileScreen extends StatelessWidget {
       body: const SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
-          children: [
-            _ProfileHeader(),
-            _StatsRow(),
-            _MenuSection(),
-          ],
+          children: [_ProfileHeader(), _StatsRow(), _MenuSection()],
         ),
       ),
     );
@@ -56,41 +54,48 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Private sub-widgets – kept in the same file because they are small,
-// tightly-coupled to [ProfileScreen], and not reused elsewhere.
-// ---------------------------------------------------------------------------
-
-/// Avatar + name + email block.
 class _ProfileHeader extends StatelessWidget {
   const _ProfileHeader();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        verticalSpace(20),
-        const ProfileImageStack(),
-        verticalSpace(16),
-        Text(
-          'Dev: Ahmed Elbadri',
-          style: GoogleFonts.montserrat(
-            fontSize: 24,
-            fontWeight: FontWeightManger.fontWeightBold,
-            color: Colors.black87,
-          ),
-        ),
-        verticalSpace(4),
-        Text(
-          'aelbadri23@gmail.com',
-          style: GoogleFonts.montserrat(
-            fontSize: 14,
-            fontWeight: FontWeightManger.fontWeightMedium,
-            color: Colors.grey[600],
-          ),
-        ),
-        verticalSpace(30),
-      ],
+    return BlocBuilder<UserInfoCubit, UserInfoState>(
+      builder: (context, state) {
+        if (state is UserInfoError) {
+          return const Center(child: Text('error data'));
+        }
+        if (state is UserInfoLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (state is UserInfoSuccess) {
+          return Column(
+            children: [
+              verticalSpace(20),
+              const ProfileImageStack(),
+              verticalSpace(16),
+              Text(
+                'Name: ${state.name}',
+                style: GoogleFonts.montserrat(
+                  fontSize: 24,
+                  fontWeight: FontWeightManger.fontWeightBold,
+                  color: Colors.black87,
+                ),
+              ),
+              verticalSpace(4),
+              Text(
+                'Email: ${state.email}',
+                style: GoogleFonts.montserrat(
+                  fontSize: 14,
+                  fontWeight: FontWeightManger.fontWeightMedium,
+                  color: Colors.grey[600],
+                ),
+              ),
+              verticalSpace(30),
+            ],
+          );
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }

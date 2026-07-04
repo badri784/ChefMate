@@ -59,6 +59,4 @@ class AppStateCubit extends Cubit<AppStateState> {
       emit(AppStateError(e.toString()));
     }
   }
-
-  Future<void> getUserInfo() async {}
 }

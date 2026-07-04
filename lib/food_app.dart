@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/dependance_injection/di.dart';
 import 'package:food_app/core/logic/cubit/save_meal_cubit/savemeal_cubit.dart';
+import 'package:food_app/core/logic/user_info/user_info_cubit.dart';
 import 'package:food_app/core/routing/app_router.dart';
 import 'package:food_app/core/routing/routes.dart';
 
@@ -11,7 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => SavemealCubit())],
+      providers: [
+        BlocProvider(create: (context) => SavemealCubit()),
+        BlocProvider(create: (context) => UserInfoCubit()),
+      ],
       child: MaterialApp(
         theme: ThemeData(
           brightness: Brightness.light,
