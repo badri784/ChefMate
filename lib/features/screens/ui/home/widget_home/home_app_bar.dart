@@ -1,3 +1,4 @@
+import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/logic/user_info/user_info_cubit.dart';
@@ -10,12 +11,18 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return BlocBuilder<UserInfoCubit, UserInfoState>(
       builder: (context, state) {
         if (state is UserInfoError) {
-          return const Text('error data');
+          return const SafeArea(child: Center(child: Text('error data')));
         }
         if (state is UserInfoLoading) {
-          return Container(
-            height: 50,
-            child: const Center(child: CircularProgressIndicator()),
+          return const Center(
+            child: FadeShimmer(
+              height: 80,
+              width: double.infinity,
+              radius: 4,
+              fadeTheme: FadeTheme.dark,
+              highlightColor: Colors.black,
+              baseColor: Color(0xffE6E8EB),
+            ),
           );
         }
         if (state is UserInfoSuccess) {

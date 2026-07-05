@@ -9,13 +9,29 @@ import 'package:food_app/core/networking/repo/my_repo.dart';
 import 'package:food_app/features/screens/ui/onboarding/splash_screen/splash_screen_logging.dart';
 import 'package:food_app/features/widget/nacigation_bottom.dart';
 
-class AuthGate extends StatelessWidget {
+class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
+
+  @override
+  State<AuthGate> createState() => _AuthGateState();
+}
+
+class _AuthGateState extends State<AuthGate> {
+  // Cache these in initState so hot reload doesn't recreate them
+  late final Stream<User?> _authStream;
+  late final String _randomCharacter;
+
+  @override
+  void initState() {
+    super.initState();
+    _authStream = FirebaseAuth.instance.authStateChanges();
+    _randomCharacter = String.fromCharCode(Random().nextInt(26) + 97);
+  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: _authStream,
       builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -33,12 +49,9 @@ class AuthGate extends StatelessWidget {
           return const SplashScreenTwo();
         }
 
-        final String randomCharacter = String.fromCharCode(
-          Random().nextInt(26) + 97,
-        );
         return BlocProvider(
           create: (context) =>
-              AppStateCubit(getIt<MyRepo>())..getMeals(randomCharacter),
+              AppStateCubit(getIt<MyRepo>())..getMeals(_randomCharacter),
           child: const Home(),
         );
       },

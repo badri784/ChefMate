@@ -15,7 +15,7 @@ class AppStateCubit extends Cubit<AppStateState> {
   // search by first letter
   Future<void> getMeals(String firstChar) async {
     try {
-      // lastFetchedChar = firstChar;
+      lastFetchedChar = firstChar;
       emit(AppStateLoading());
       final FoodModel response = await myRepo.getMeals(firstChar);
       searchedMealList = response.meals;

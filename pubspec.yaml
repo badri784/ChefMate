@@ -61,6 +61,7 @@ dependencies:
   cloud_firestore: ^6.6.0
   google_sign_in: ^7.2.0
   flutter_facebook_auth: ^7.2.0
+  fade_shimmer: ^2.4.0
   
 
 dev_dependencies:

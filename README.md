@@ -13,16 +13,24 @@
 
 | Feature | Description |
 |---------|-------------|
-| 🔐 **Authentication** | Sign up & login with email/password via Firebase Auth |
-| 👤 **User Profiles** | User data stored in Cloud Firestore |
-| 🍽️ **Recipe Discovery** | Browse trending meals and global cuisines |
+| 🔐 **Email/Password Auth** | Sign up & login with email/password via Firebase Auth |
+| 🔑 **Google Sign-In** | One-tap authentication using Google account |
+| 📘 **Facebook Login** | Sign in seamlessly with your Facebook account |
+| 🚪 **Auth Gate** | Automatic session management — users stay logged in across app restarts via `authStateChanges` stream |
+| 👤 **User Profiles** | User data (name & email) stored and fetched from Cloud Firestore |
+| 🍽️ **Recipe Discovery** | Browse trending meals and global cuisines with randomized results |
 | 📂 **Categories** | Filter meals by food categories |
 | 📖 **Detailed View** | Ingredients, cooking times, and step-by-step instructions |
-| 🔍 **Search** | Search meals by name |
+| 🔍 **Real-Time Search** | Search meals by name with instant results as you type |
 | 💾 **Save Meals** | Bookmark favorite recipes locally with Hive |
 | 📤 **Share** | Share recipes with friends |
+| ⚙️ **Profile & Settings** | Redesigned profile screen with user stats (Recipes · Saved · Followers), personal details, notifications, settings, help & support, and log-out |
+| 📱 **Bottom Navigation** | Smooth navigation between Home, Saved, and Profile tabs |
+| ✨ **Shimmer Loading** | Beautiful shimmer/skeleton loading effects while content loads |
+| 🎬 **Multi-Page Onboarding** | 3-page animated onboarding with PageView and animated dot indicators |
+| 🎨 **Custom App Icon & Splash** | Branded app icon and native splash screen using `flutter_launcher_icons` & `flutter_native_splash` |
 | 🌐 **Offline Support** | Graceful error handling when network is unavailable |
-| 🎬 **Onboarding** | Animated onboarding flow for first-time users |
+| 🔎 **BLoC Observer** | Debug-friendly state logging for all Cubits during development |
 
 ---
 
@@ -35,11 +43,13 @@
 | **State Management** | [flutter_bloc](https://pub.dev/packages/flutter_bloc) (Cubit) |
 | **Networking** | [Dio](https://pub.dev/packages/dio) + [Retrofit](https://pub.dev/packages/retrofit) |
 | **Authentication** | [Firebase Auth](https://pub.dev/packages/firebase_auth) |
+| **Social Login** | [Google Sign-In](https://pub.dev/packages/google_sign_in) + [Facebook Auth](https://pub.dev/packages/flutter_facebook_auth) |
 | **Database** | [Cloud Firestore](https://pub.dev/packages/cloud_firestore) |
 | **Local Storage** | [Hive](https://pub.dev/packages/hive_ce) + [SharedPreferences](https://pub.dev/packages/shared_preferences) |
 | **DI** | [get_it](https://pub.dev/packages/get_it) |
 | **Data Parsing** | [json_serializable](https://pub.dev/packages/json_serializable) + [build_runner](https://pub.dev/packages/build_runner) |
-| **UI** | [Google Fonts](https://pub.dev/packages/google_fonts), [cached_network_image](https://pub.dev/packages/cached_network_image), [animated_text_kit](https://pub.dev/packages/animated_text_kit) |
+| **UI** | [Google Fonts](https://pub.dev/packages/google_fonts), [cached_network_image](https://pub.dev/packages/cached_network_image), [animated_text_kit](https://pub.dev/packages/animated_text_kit), [Fade Shimmer](https://pub.dev/packages/fade_shimmer) |
+| **Branding** | [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) + [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) |
 
 ---
 
@@ -49,6 +59,7 @@
 lib/
 ├── main.dart                     # App entry point
 ├── food_app.dart                 # MaterialApp configuration
+├── auth_gate.dart                # Auth session gate (auto login/logout)
 ├── firebase_options.dart         # Firebase config
 │
 ├── core/                         # Shared app-wide code
@@ -56,12 +67,15 @@ lib/
 │   ├── helpers/                  # Extensions, spacing, font helpers
 │   ├── local_storage/            # Hive local DB service
 │   ├── logic/                    # BLoC/Cubit layer
+│   │   ├── bloc_observer.dart    # BLoC observer for debugging
+│   │   ├── user_info/            # User info cubit (Firestore)
 │   │   └── cubit/
 │   │       ├── category_cubit/       # Food categories
-│   │       ├── food_meal_category/   # Meals by category
+│   │       ├── food_meal_category/   # Meals by category & search
+│   │       ├── google_login/         # Google & Facebook sign-in
 │   │       ├── meal_detail_screen/   # Meal detail
 │   │       ├── save_meal_cubit/      # Saved/bookmarked meals
-│   │       └── sing_to_app/          # Auth (login & signup)
+│   │       └── sing_to_app_with_email_and_password/  # Email auth
 │   ├── model/                    # Data models (food, category)
 │   ├── networking/               # API services
 │   │   ├── login_service/        # Firebase Auth repo
@@ -73,11 +87,21 @@ lib/
 ├── features/                     # Feature modules
 │   ├── screens/ui/
 │   │   ├── home/                 # Home screen
-│   │   ├── detail_screen.dart/   # Meal detail screen
-│   │   ├── search_screen.dart    # Search screen
-│   │   ├── profile_screen.dart   # User profile
+│   │   ├── detail_screen.dart/   # Meal detail & search detail screens
+│   │   ├── search_screen.dart    # Real-time search screen
+│   │   ├── setting_screen/       # Profile & settings screen
+│   │   │   ├── profile_screen.dart
+│   │   │   └── setting_screen_widget/
+│   │   │       ├── build_menu_item.dart
+│   │   │       ├── build_state_item.dart
+│   │   │       ├── menu_item_column.dart
+│   │   │       └── profile_image_stack.dart
 │   │   ├── saved_meals/          # Bookmarked meals
-│   │   └── onboarding/           # Splash & auth screens
+│   │   └── onboarding/           # Multi-page onboarding flow
+│   │       ├── onboarding_discover.dart
+│   │       ├── onboarding_guides.dart
+│   │       ├── page_one.dart
+│   │       ├── page_three.dart
 │   │       └── splash_screen/
 │   │           └── login_screens/
 │   │               ├── login_screen.dart
@@ -86,6 +110,7 @@ lib/
 │   │               ├── login_screen_widget/  # Login form widgets
 │   │               └── sign_up_widget/       # Sign up form widgets
 │   └── widget/                   # Shared reusable widgets
+│       └── nacigation_bottom.dart  # Bottom navigation bar
 ```
 
 ---
@@ -119,9 +144,11 @@ flutter run
 
 1. Create a Firebase project at [console.firebase.google.com](https://console.firebase.google.com)
 2. Enable **Email/Password** authentication
-3. Enable **Cloud Firestore**
-4. Add your Android/iOS app and download the config files
-5. The `firebase_options.dart` is already included — update it if needed with:
+3. Enable **Google** sign-in provider
+4. Enable **Facebook** sign-in provider (requires Facebook App ID)
+5. Enable **Cloud Firestore**
+6. Add your Android/iOS app and download the config files
+7. The `firebase_options.dart` is already included — update it if needed with:
    ```bash
    flutterfire configure
    ```
