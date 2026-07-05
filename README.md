@@ -202,5 +202,5 @@ This project is for educational purposes.
 ---
 
 <p align="center">
-  Made with ❤️ using Flutter
+  Made By Ahmed Elbadri
 </p>
